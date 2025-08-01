@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Proxy Test UI</title>
+</head>
+<body>
+  <h2>Fetch a URL through the Proxy</h2>
+  <input type="text" id="url" placeholder="http://example.com" size="60">
+  <button onclick="fetchViaProxy()">Fetch</button>
+  <pre id="output"></pre>
+
+  <script>
+    async function fetchViaProxy() {
+      const url = document.getElementById("url").value;
+      const proxyUrl = "http://localhost:8080/" + url.replace(/^https?:\/\//, '');
+      try {
+        const response = await fetch(proxyUrl);
+        const text = await response.text();
+        document.getElementById("output").textContent = text;
+      } catch (e) {
+        document.getElementById("output").textContent = "Error: " + e;
+      }
+    }
+  </script>
+</body>
+</html>
